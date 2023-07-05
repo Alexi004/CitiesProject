@@ -17,7 +17,7 @@ public class CityValidator {
     }
 
     public CityValidator() {
-        this.towns= new String[]{"Kyiv", "Lviv", "Vinnytsya", "Odessa"}; ///towns for testing
+        this.towns= new String[]{"Київ", "Львів", "Вінниця", "Odessa"}; ///towns for testing
     }
 
     public boolean checkTown(String town){

@@ -7,27 +7,27 @@ public class CityValidatorTest {
 
     @BeforeEach
     public void setup() {
-        String[] towns = {"Kyiv", "Lviv", "Vinnytsya", "Odessa" };
+        String[] towns = {"Київ", "Львів", "Вінниця", "Одесса" };
         cityValidator = new CityValidator(towns);
     }
 
     @Test
     public void testValidCity() {
-        String validCity = "Kyiv";
+        String validCity = "Київ";
         boolean isValid = cityValidator.checkTown(validCity);
         Assertions.assertTrue(isValid);
     }
 
     @Test
     public void testInvalidCity() {
-        String invalidCity = "Moskva";
+        String invalidCity = "Москава";
         boolean isValid = cityValidator.checkTown(invalidCity);
         Assertions.assertFalse(isValid);
     }
 
     @Test
     public void testCaseInsensitiveCity() {
-        String caseInsensitiveCity = "kYiV";
+        String caseInsensitiveCity = "Київ";
         boolean isValid = cityValidator.checkTown(caseInsensitiveCity);
         Assertions.assertTrue(isValid);
     }
@@ -35,7 +35,7 @@ public class CityValidatorTest {
     public void testDefaultConstructor() {
         CityValidator cityValidator = new CityValidator();
 
-        String[] expectedTowns = {"Kyiv", "Lviv", "Vinnytsya"};
+        String[] expectedTowns = {"Київ", "Львів", "Вінниця"};
 
         // Перевіряємо кожне місто зі списку expectedTowns через метод checkTown()
         for (String town : expectedTowns) {
