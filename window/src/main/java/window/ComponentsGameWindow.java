@@ -7,15 +7,14 @@ public class ComponentsGameWindow {
     static JFrame frameGame = new JFrame("Міста");
     static JPanel panel = new JPanel();
     static JButton button = new JButton("Зробити хід");
-    static JLabel instructionLabel = new JLabel("Введіть, будь ласка, назву міста:");
+    static JLabel instructionLabel = new JLabel("Введіть назву міста:");
     static JTextField userInputField = new JTextField(15);
     static JLabel computerResponseLabelText = new JLabel("Відповідь комп'ютера:");
     static JLabel computerResponseLabel = new JLabel("ххххххххххххх");
     static JLabel explanationForGameOver = new JLabel("(Якщо у Вас закінчились варіанти назв міст,");
-    static JLabel explanationForGameOver1 = new JLabel("введіть, будь ласка, в текстове поле слово \"здаюсь\")");
+    static JLabel explanationForGameOver1 = new JLabel("введіть в текстове поле слово \"здаюсь\")");
     private static final String NAME_FONT = "Arial";
     private static final int SIZE_FONT = 17;
-
     private static final int HEIGHT_FRAME = 500;
     private static final int WIDTH_FRAME = 400;
 
