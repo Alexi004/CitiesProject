@@ -6,6 +6,7 @@ import java.awt.*;
 public class WelcomeWindow extends JFrame {
     private static final String FONT_NAME = "Arial";
     private static final int FONT_SIZE = 17;
+
     public WelcomeWindow() {
         setTitle("Вітаю");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,9 +51,4 @@ public class WelcomeWindow extends JFrame {
         dispose();
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            WelcomeWindow welcomeWindow = new WelcomeWindow();
-        });
-    }
 }
