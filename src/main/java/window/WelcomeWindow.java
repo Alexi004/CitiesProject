@@ -2,13 +2,10 @@ package window;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class WelcomeWindow extends JFrame {
     private static final String FONT_NAME = "Arial";
     private static final int FONT_SIZE = 17;
-
     public WelcomeWindow() {
         setTitle("Вітаю");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,6 +41,7 @@ public class WelcomeWindow extends JFrame {
         add(panel);
         setVisible(true);
     }
+
     private void enterName() {
         String name = JOptionPane.showInputDialog(this, "Введіть ваше ім'я:");
         if (name != null && !name.isEmpty()) {
@@ -52,8 +50,6 @@ public class WelcomeWindow extends JFrame {
             JOptionPane.showMessageDialog(this, "Будь ласка, введіть ваше ім'я!");
         }
     }
-
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new WelcomeWindow());
     }
