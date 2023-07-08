@@ -2,6 +2,9 @@ package window;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 public class WelcomeWindow extends JFrame {
     private static final String FONT_NAME = "Arial";
@@ -39,16 +42,24 @@ public class WelcomeWindow extends JFrame {
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 new Insets(10, 170, 10, 170), 0, 0));
 
+
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Закриття вікна привітання
+                SwingUtilities.invokeLater(() -> {
+                    GameWindow gameWindow = new GameWindow();
+                    gameWindow.createGameWindow();
+                });
+            }
+        });
         add(panel);
         setVisible(true);
     }
 
-    private void enterName() {
-        // Логіка для обробки натискання кнопки "Введіть ім'я"
-    }
-
-    private void closeWindow() {
+    public void openGameWindow() {
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.closeWindow();
         dispose();
     }
-
 }

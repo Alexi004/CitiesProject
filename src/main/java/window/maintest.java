@@ -7,8 +7,5 @@ public class maintest {
         SwingUtilities.invokeLater(() -> {
             WelcomeWindow welcomeWindow = new WelcomeWindow();
         });
-
-        GameWindow game = new GameWindow();
-        game.createGameWindow();
     }
 }
