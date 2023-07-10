@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -26,7 +29,6 @@ public class MainGame {
             ) {
                 if (Character.toLowerCase(city.getKey().charAt(0)) == firstChar) {
                     if (cities.get(city.getKey())==0)
-                        //cities.put(city.getKey(),turnCounter);
                         return city.getKey();
                 }
             }
@@ -35,7 +37,7 @@ public class MainGame {
     }
 
     public static void main(String[] args) {
-        MainGame game = new MainGame(new Player("testName"), loadCities("cities.txt"));
+        MainGame game = new MainGame(new Player("testName"), loadCities("src\\main\\resources\\cities.txt"));
         //first turn
         String aiCity = "Київ";//game.getRandomCity('0');
         game.setLastCity(String.valueOf(aiCity.charAt(0)).toLowerCase());
@@ -63,6 +65,16 @@ public class MainGame {
 
     public static HashMap<String, Integer> loadCities(String fileName) {
         HashMap<String, Integer> cities = new HashMap<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+            String line;
+            while ((line= reader.readLine())!=null){
+                cities.put(line,0);
+            }
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        //for testing
         cities.put("Київ", 0);
         cities.put("Львів", 0);
         cities.put("Вінниця", 0);
@@ -89,9 +101,13 @@ public class MainGame {
     }
 
     private char getLastCitySymbol() {
-        char lastSymbol = getLastCity().charAt(getLastCity().length() - 1);
-        if (lastSymbol != 'ь') {
-            return lastSymbol;
+
+        String lastCity= getLastCity();
+        for (int i = lastCity.length(); i >0 ; i--) {
+            char lastSymbol = lastCity.charAt(i-1);
+            if (lastSymbol != 'ь' && lastSymbol != 'й' && lastSymbol != 'и') {
+                return lastSymbol;
+            }
         }
         return getLastCity().charAt(getLastCity().length() - 2);
     }
