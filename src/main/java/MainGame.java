@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class MainGame {
     Player player;
-    String lastCity;
+    private String lastCity;
     HashMap<String, Integer> cities;
     String[] citiesByIndex;
     int turnCounter;
@@ -12,74 +12,95 @@ public class MainGame {
     public MainGame(Player player, HashMap<String, Integer> cities) {
         this.player = player;
         this.cities = cities;
-        this.citiesByIndex = (String[]) cities.keySet().toArray();
+        this.citiesByIndex = cities.keySet().toArray(String[]::new);
         this.turnCounter = 1;
     }
-    private String getRandomCity(char firstChar){
-        if (firstChar=='0'){
+
+    private String getRandomCity(char firstChar) {
+        if (firstChar == '0') {
             int randomIndex = new Random().nextInt(cities.size());
             return citiesByIndex[randomIndex];
-        }else {
+        } else {
             //todo get random city that begin from firstChar
-            for (Map.Entry<String ,Integer> city:cities.entrySet()
-                 ) {
-                if (city.getKey().charAt(0) == firstChar) {
-                    return  city.getKey();
+            for (Map.Entry<String, Integer> city : cities.entrySet()
+            ) {
+                if (Character.toLowerCase(city.getKey().charAt(0)) == firstChar) {
+                    if (cities.get(city.getKey())==0)
+                        //cities.put(city.getKey(),turnCounter);
+                        return city.getKey();
                 }
             }
         }
         return "not found";
     }
+
     public static void main(String[] args) {
         MainGame game = new MainGame(new Player("testName"), loadCities("cities.txt"));
         //first turn
-        String aiCity="Киів";//game.getRandomCity('0');
-        while (true){
-
-        if (game.isCityAvailable(aiCity)) {
-            System.out.println("Turn "+aiCity + " 1 " +game.turnCounter);
-        }else {
-            System.out.println("ai loss at turn:"+game.turnCounter);
-            break;
-        }
-        //player answer
-        String answer="Вінниця";
+        String aiCity = "Київ";//game.getRandomCity('0');
+        game.setLastCity(String.valueOf(aiCity.charAt(0)).toLowerCase());
+        //first ai turn
+        game.isCityAvailable(aiCity);
+        System.out.println("Turn " + aiCity + " 1 " + game.turnCounter);
+        while (true) {
+            //player answer
+            String answer = game.getRandomCity(game.getLastCitySymbol());
+            if (game.isCityAvailable(answer)) {
+                System.out.println("Turn " + answer + " 2 " + game.turnCounter);
+            } else {
+                System.out.println("Turn " + answer +" player loss at turn:" + game.turnCounter);
+            }
+            aiCity=game.getRandomCity(game.getLastCitySymbol());
             if (game.isCityAvailable(aiCity)) {
-                System.out.println("Turn "+answer + " 2 "+game.turnCounter);
-            }else {
-                System.out.println("player loss at turn:"+game.turnCounter);
+                System.out.println("Turn " + aiCity + " 1 " + game.turnCounter);
+                game.cities.put(aiCity, game.turnCounter);
+            } else {
+                System.out.println("ai loss at turn:" + game.turnCounter);
+                break;
             }
         }
     }
 
-    public static HashMap<String,Integer> loadCities(String fileName) {
-        HashMap<String,Integer> cities = new HashMap<>();
+    public static HashMap<String, Integer> loadCities(String fileName) {
+        HashMap<String, Integer> cities = new HashMap<>();
         cities.put("Київ", 0);
         cities.put("Львів", 0);
         cities.put("Вінниця", 0);
         cities.put("Odessa", 0);
+        cities.put("Яворів", 0);
+        cities.put("Васильків", 0);
+        cities.put("Виноградів", 0);
         return cities;
 
     }
 
     public boolean isCityAvailable(String city) {
-        if (city.charAt(0)!=getLastCitySymbol()){
+        if (Character.toLowerCase(city.charAt(0)) != getLastCitySymbol()) {
             return false;
         }
         if (cities.getOrDefault(city, 1) == 0) {
             turnCounter += 1;
             cities.put(city, turnCounter);
+            lastCity = city;
             return true;
         } else {
             return false;
         }
     }
+
     private char getLastCitySymbol() {
-        char lastSymbol = lastCity.charAt(lastCity.length()-1);
+        char lastSymbol = getLastCity().charAt(getLastCity().length() - 1);
         if (lastSymbol != 'ь') {
             return lastSymbol;
         }
-        return lastCity.charAt(lastCity.length() - 2);
+        return getLastCity().charAt(getLastCity().length() - 2);
     }
 
+    public String getLastCity() {
+        return lastCity;
+    }
+
+    public void setLastCity(String lastCity) {
+        this.lastCity = lastCity;
+    }
 }
