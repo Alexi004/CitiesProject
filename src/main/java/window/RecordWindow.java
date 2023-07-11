@@ -1,10 +1,10 @@
 package window;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import javax.swing.border.EmptyBorder;
 
 public class RecordWindow extends JFrame {
     private static final int WINDOW_WIDTH = 400;
@@ -63,18 +63,18 @@ public class RecordWindow extends JFrame {
     }
 
     private void startNewGame() {
-
-    }
-
-    public void addRecord(String date, String name, int score) {
-        tableModel.addRow(new Object[]{date, name, score});
-    }
-
-    public static void main(String[] args) {
+        dispose();
         SwingUtilities.invokeLater(() -> {
-            RecordWindow recordWindow = new RecordWindow();
-            recordWindow.setVisible(true);
+            WelcomeWindow welcomeWindow = new WelcomeWindow();
         });
     }
-}
 
+    public void addRecord(String name, int score) {
+        tableModel.addRow(new Object[]{getCurrentDate(), name, score});
+    }
+
+    private String getCurrentDate() {
+        java.util.Date date = new java.util.Date();
+        return new java.sql.Date(date.getTime()).toString();
+    }
+}

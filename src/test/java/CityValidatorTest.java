@@ -1,13 +1,17 @@
+import gamelogic.CityValidator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class CityValidatorTest {
     private CityValidator cityValidator;
 
     @BeforeEach
     public void setup() {
-        String[] towns = {"Київ", "Львів", "Вінниця", "Одесса" };
+        String[] towns = {"Київ", "Львів", "Вінниця", "Одесса"};
         cityValidator = new CityValidator(towns);
     }
 
@@ -20,22 +24,23 @@ public class CityValidatorTest {
 
     @Test
     public void testInvalidCity() {
-        String invalidCity = "Москава";
+        String invalidCity = "Москва";
         boolean isValid = cityValidator.checkTown(invalidCity);
         Assertions.assertFalse(isValid);
     }
 
     @Test
     public void testCaseInsensitiveCity() {
-        String caseInsensitiveCity = "Київ";
+        String caseInsensitiveCity = "кИЇВ";
         boolean isValid = cityValidator.checkTown(caseInsensitiveCity);
         Assertions.assertTrue(isValid);
     }
+
     @Test
     public void testDefaultConstructor() {
         CityValidator cityValidator = new CityValidator();
 
-        String[] expectedTowns = {"Київ", "Львів", "Вінниця"};
+        List<String> expectedTowns = Arrays.asList("Київ", "Львів", "Вінниця");
 
         // Перевіряємо кожне місто зі списку expectedTowns через метод checkTown()
         for (String town : expectedTowns) {

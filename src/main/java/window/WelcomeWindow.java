@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
 public class WelcomeWindow extends JFrame {
     private static final String FONT_NAME = "Arial";
     private static final int FONT_SIZE = 17;
@@ -42,24 +41,19 @@ public class WelcomeWindow extends JFrame {
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 new Insets(10, 170, 10, 170), 0, 0));
 
-
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose(); // Закриття вікна привітання
+                dispose(); // Close the current welcome window
+                String playerName = nameTextField.getText();
                 SwingUtilities.invokeLater(() -> {
-                    GameWindow gameWindow = new GameWindow();
-                    gameWindow.createGameWindow();
+                    GameWindow gameWindow = new GameWindow(playerName); // Create the game window
+                    gameWindow.setVisible(true);
                 });
             }
         });
-        add(panel);
-        setVisible(true);
-    }
 
-    public void openGameWindow() {
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.closeWindow();
-        dispose();
+        setContentPane(panel);
+        setVisible(true);
     }
 }

@@ -4,81 +4,86 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ComponentsGameWindow {
-    static JFrame frameGame = new JFrame("Міста");
-    static JPanel panel = new JPanel();
-    static JButton button = new JButton("Зробити хід");
-    static JLabel instructionLabel = new JLabel("Введіть назву міста:");
-    static JTextField userInputField = new JTextField(15);
-    static JLabel computerResponseLabelText = new JLabel("Відповідь комп'ютера:");
-    static JLabel computerResponseLabel = new JLabel("ххххххххххххх");
-    static JLabel explanationForGameOver = new JLabel("(Якщо у Вас закінчились варіанти назв міст,");
-    static JLabel explanationForGameOver1 = new JLabel("введіть в текстове поле слово \"здаюсь\")");
     private static final String NAME_FONT = "Arial";
     private static final int SIZE_FONT = 17;
     private static final int HEIGHT_FRAME = 500;
     private static final int WIDTH_FRAME = 400;
 
+    private static JFrame frameGame;
+    private static JPanel panel;
+    private static JButton button;
+    private static JLabel instructionLabel;
+    private static JTextField userInputField;
+    private static JLabel computerResponseLabelText;
+    private static JLabel computerResponseLabel;
+    private static JLabel explanationForGameOver;
+    private static JLabel explanationForGameOver1;
+
     public static void createFrame() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        frameGame = new JFrame("Міста");
+        panel = new JPanel();
+        button = new JButton("Зробити хід");
+        instructionLabel = new JLabel("Введіть назву міста:");
+        userInputField = new JTextField(15);
+        computerResponseLabelText = new JLabel("Відповідь комп'ютера:");
+        computerResponseLabel = new JLabel("ххххххххххххх");
+        explanationForGameOver = new JLabel("(Якщо у Вас закінчились варіанти назв міст,");
+        explanationForGameOver1 = new JLabel("введіть в текстове поле слово \"здаюсь\")");
 
         frameGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameGame.setSize(WIDTH_FRAME, HEIGHT_FRAME);
+        frameGame.setResizable(true);
+        frameGame.setLocationRelativeTo(null);
 
-        int x = (screenSize.width - WIDTH_FRAME) / 2;
-        int y = (screenSize.height - HEIGHT_FRAME) / 2;
-        frameGame.setLocation(x, y);
+        panel.setLayout(new GridBagLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        frameGame.add(panel);
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.insets = new Insets(5, 5, 5, 5);
+        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+
+        instructionLabel.setFont(new Font(NAME_FONT, Font.BOLD, SIZE_FONT));
+        explanationForGameOver.setFont(new Font(NAME_FONT, Font.ITALIC, 10));
+        explanationForGameOver1.setFont(new Font(NAME_FONT, Font.ITALIC, 10));
+        button.setFont(new Font(NAME_FONT, Font.BOLD, SIZE_FONT));
+        userInputField.setFont(new Font(NAME_FONT, Font.BOLD, SIZE_FONT));
+        computerResponseLabelText.setFont(new Font(NAME_FONT, Font.BOLD, SIZE_FONT));
+        computerResponseLabel.setFont(new Font(NAME_FONT, Font.BOLD, SIZE_FONT));
+
+        panel.add(instructionLabel, constraints);
+        constraints.gridy++;
+        panel.add(explanationForGameOver, constraints);
+        constraints.gridy++;
+        panel.add(explanationForGameOver1, constraints);
+        constraints.gridy++;
+        panel.add(userInputField, constraints);
+        constraints.gridy++;
+        panel.add(button, constraints);
+        constraints.gridy++;
+        panel.add(computerResponseLabelText, constraints);
+        constraints.gridy++;
+        panel.add(computerResponseLabel, constraints);
+
+        frameGame.add(panel, BorderLayout.CENTER);
         frameGame.setVisible(true);
     }
 
-    public static void createButton() {
-        button.setPreferredSize(new Dimension(210, 30));
-        panel.add(button, new GridBagConstraints(0, 4, 1, 1, 0, 0,
-                GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
-                new Insets(0, 0, 0, 0), 0, 0));
+    public static void showGameOverDialog() {
+        JOptionPane.showMessageDialog(frameGame, "Гра закінчена. Ви програли.", "Кінець гри", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public static void createLabel() {
-        instructionLabel.setPreferredSize(new Dimension(300, 40));
-        computerResponseLabelText.setPreferredSize(new Dimension(300, 40));
-        computerResponseLabel.setPreferredSize(new Dimension(300, 20));
-        explanationForGameOver.setPreferredSize(new Dimension(300, 20));
-
-        panel.add(instructionLabel, new GridBagConstraints(0, 0, 1, 1, 0, 0,
-                GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
-                new Insets(0, 0, 0, 0), 0, 0));
-        panel.add(explanationForGameOver, new GridBagConstraints(0, 1, 1, 1, 0, 0,
-                GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
-                new Insets(0, 0, 0, 0), 0, 0));
-        panel.add(explanationForGameOver1, new GridBagConstraints(0, 2, 1, 1, 0, 0,
-                GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
-                new Insets(0, 0, 10, 0), 0, 0));
-        panel.add(computerResponseLabelText, new GridBagConstraints(0, 5, 1, 1, 0, 0,
-                GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
-                new Insets(0, 0, 0, 0), 0, 0));
-        panel.add(computerResponseLabel, new GridBagConstraints(0, 6, 1, 1, 0, 0,
-                GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
-                new Insets(0, 0, 0, 0), 0, 0));
+    public static JButton getButton() {
+        return button;
     }
 
-    public static void createTextField() {
-        userInputField.setPreferredSize(new Dimension(150, 30));
-        panel.add(userInputField, new GridBagConstraints(0, 3, 1, 1, 0, 0,
-                GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
-                new Insets(0, 0, 10, 0), 0, 0));
+    public static String getUserInput() {
+        return userInputField.getText();
     }
 
-    public static void usingFonts() {
-        Font font = new Font(NAME_FONT, Font.BOLD, SIZE_FONT);
-        button.setFont(font);
-        instructionLabel.setFont(font);
-        userInputField.setFont(font);
-        computerResponseLabelText.setFont(font);
-        computerResponseLabel.setFont(font);
-
-        Font font1 = new Font(NAME_FONT, Font.ITALIC, 10);
-        explanationForGameOver.setFont(font1);
-        explanationForGameOver1.setFont(font1);
+    public static void setComputerResponse(String response) {
+        computerResponseLabel.setText(response);
     }
 }

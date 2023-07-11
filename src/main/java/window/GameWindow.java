@@ -1,31 +1,51 @@
 package window;
 
-import java.awt.*;
+import gamelogic.CityValidator;
+import gamelogic.MainGame;
+import gamelogic.Player;
 
-import static window.ComponentsGameWindow.*;
+import javax.swing.*;
 
-public class GameWindow {
-    private String userInputText;
+public class GameWindow extends JFrame {
+    private MainGame game;
+    private ComponentsGameWindow components;
+    private WelcomeWindow welcomeWindow;
 
-    public void createGameWindow() {
-        GridBagLayout gridBagLayout = new GridBagLayout();
-        panel.setLayout(gridBagLayout);
-
-        createFrame();
-        createTextField();
-        createButton();
-        createLabel();
-        usingFonts();
+    public GameWindow(String playerName) {
+        this.welcomeWindow = welcomeWindow;
+        String[] cities = CityValidator.loadCities("src/main/resources/cities.txt");
+        game = new MainGame(new Player(playerName), cities);
+        components = new ComponentsGameWindow();
+        initComponents();
     }
 
-    public String getUserInput() {
-        ComponentsGameWindow.button.addActionListener(e -> {
-            String userInputText = ComponentsGameWindow.userInputField.getText();
+    private void initComponents() {
+        components.createFrame();
+
+        components.getButton().addActionListener(e -> {
+            String userInput = components.getUserInput();
+            boolean isCityAvailable = game.isCityAvailable(userInput);
+
+            if (isCityAvailable) {
+                String aiCity = game.getRandomCity(userInput.charAt(userInput.length() - 1));
+                components.setComputerResponse(aiCity);
+                game.addCity(userInput, aiCity);
+            } else {
+                components.showGameOverDialog();
+                showRecordWindow();
+            }
         });
-        return userInputText;
     }
 
-    public void closeWindow() {
-        ComponentsGameWindow.frameGame.dispose();
+    private void showRecordWindow() {
+        RecordWindow recordWindow = new RecordWindow();
+        // Get player score data and add the record to the record window
+        int playerScore = game.getPlayerScore();
+        String playerName = game.getPlayer().getPlayerName();
+        recordWindow.addRecord(playerName, playerScore);
+        recordWindow.setVisible(true);
+
+        // Close the current welcome window
+        welcomeWindow.dispose();
     }
 }
