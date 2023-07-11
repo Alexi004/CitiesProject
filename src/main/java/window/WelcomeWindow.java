@@ -2,8 +2,6 @@ package window;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class WelcomeWindow extends JFrame {
     private static final String FONT_NAME = "Arial";
@@ -41,16 +39,10 @@ public class WelcomeWindow extends JFrame {
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 new Insets(10, 170, 10, 170), 0, 0));
 
-        okButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // Close the current welcome window
-                String playerName = nameTextField.getText();
-                SwingUtilities.invokeLater(() -> {
-                    GameWindow gameWindow = new GameWindow(playerName); // Create the game window
-                    gameWindow.setVisible(true);
-                });
-            }
+        okButton.addActionListener(e -> {
+            dispose(); // Close the current welcome window
+            String playerName = nameTextField.getText();
+            SwingUtilities.invokeLater(() -> new GameWindow(playerName));
         });
 
         setContentPane(panel);
