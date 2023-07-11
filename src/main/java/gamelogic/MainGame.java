@@ -54,7 +54,7 @@ public class MainGame {
         }
     }
 
-    private char getLastCitySymbol() {
+    public char getLastCitySymbol() {
         if (lastCity != null && !lastCity.isEmpty()) {
             String lastCityLowerCase = lastCity.toLowerCase();
             for (int i = lastCityLowerCase.length(); i > 0; i--) {
