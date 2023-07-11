@@ -75,6 +75,10 @@ public class ComponentsGameWindow {
         JOptionPane.showMessageDialog(frameGame, "Гра закінчена. Ви програли.", "Кінець гри", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    public static void showMessage(String message,String title) {
+        JOptionPane.showMessageDialog(frameGame, message, title, JOptionPane.INFORMATION_MESSAGE);
+    }
+
     public static JButton getButton() {
         return button;
     }

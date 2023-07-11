@@ -24,6 +24,11 @@ public class GameWindow extends JFrame {
 
         ComponentsGameWindow.getButton().addActionListener(e -> {
             String userInput = ComponentsGameWindow.getUserInput();
+            if (userInput.equalsIgnoreCase("z") || userInput.equalsIgnoreCase("здаюсь")){
+                showRecordWindow();
+                dispose();
+                return;
+            }
             boolean isCityAvailable = game.isCityAvailable(userInput);
 
             if (isCityAvailable) {
@@ -31,8 +36,7 @@ public class GameWindow extends JFrame {
                 ComponentsGameWindow.setComputerResponse(aiCity.substring(0, 1).toUpperCase() + aiCity.substring(1));
                 game.addCity(userInput, aiCity);
             } else {
-                ComponentsGameWindow.showGameOverDialog();
-                showRecordWindow();
+                ComponentsGameWindow.showMessage("Такого міста нема","Міста нема");
             }
         });
     }
