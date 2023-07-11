@@ -27,7 +27,7 @@ public class GameWindow extends JFrame {
             String userInput = ComponentsGameWindow.getUserInput();
             if (userInput.equalsIgnoreCase("z") || userInput.equalsIgnoreCase("здаюсь")){
                 ComponentsGameWindow.closeGameWindow();
-                RecordWindow recordWindow = new RecordWindow();
+                FinishWindow recordWindow = new FinishWindow();
                 return;
             }
             boolean isCityAvailable = game.isCityAvailable(userInput);

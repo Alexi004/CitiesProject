@@ -6,7 +6,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class RecordWindow extends JFrame {
+public class FinishWindow extends JFrame {
     private static final int WINDOW_WIDTH = 400;
     private static final int WINDOW_HEIGHT = 500;
     private static final Font LABEL_FONT = new Font("Arial", Font.BOLD, 17);
@@ -14,7 +14,7 @@ public class RecordWindow extends JFrame {
     private DefaultTableModel tableModel;
     private JTable recordTable;
 
-    public RecordWindow() {
+    public FinishWindow() {
         setTitle("Список рекордів");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
