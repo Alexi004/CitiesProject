@@ -80,16 +80,16 @@ public class MainGame {
     }
 
 
-    public void addCity(String userCity, String aiCity) {
-        cities.put(userCity.toLowerCase(), turnCounter);
-        cities.put(aiCity.toLowerCase(), turnCounter);
-        turnCounter++;
-    }
-
+//    public void addCity(String userCity, String aiCity) {
+//        cities.put(userCity.toLowerCase(), turnCounter);
+//        cities.put(aiCity.toLowerCase(), turnCounter);
+//        turnCounter++;
+//    }
+    @SuppressWarnings("unused")
     public int getPlayerScore() {
         return turnCounter - 1;
     }
-
+    @SuppressWarnings("unused")
     public Player getPlayer() {
         return player;
     }
