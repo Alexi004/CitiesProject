@@ -7,9 +7,9 @@ import java.util.Map;
 import java.util.Random;
 
 public class MainGame {
-    private Player player;
+    private final Player player;
     private String lastCity;
-    private HashMap<String, Integer> cities;
+    private final HashMap<String, Integer> cities;
     private int turnCounter;
 
     public MainGame(Player player, String[] cities) {
@@ -39,8 +39,10 @@ public class MainGame {
 
     public boolean isCityAvailable(String city) {
         city = city.toLowerCase();
-        if (city.charAt(0) != getLastCitySymbol()) {
-            return false;
+        if (lastCity!=null) { //if not first turn
+            if (city.charAt(0) != getLastCitySymbol()) {
+                return false;
+            }
         }
         if (cities.containsKey(city) && cities.get(city) == 0) {
             cities.put(city, turnCounter);
@@ -67,13 +69,16 @@ public class MainGame {
         }
     }
 
+    @SuppressWarnings("unused")
     public String getLastCity() {
         return lastCity;
     }
 
+    @SuppressWarnings("unused")
     public void setLastCity(String lastCity) {
         this.lastCity = lastCity;
     }
+
 
     public void addCity(String userCity, String aiCity) {
         cities.put(userCity.toLowerCase(), turnCounter);
@@ -89,6 +94,7 @@ public class MainGame {
         return player;
     }
 
+    @SuppressWarnings("unused")
     public boolean isAllCitiesUsed() {
         for (int value : cities.values()) {
             if (value == 0) {
