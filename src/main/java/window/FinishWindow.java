@@ -6,7 +6,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class RecordWindow extends JFrame {
+public class FinishWindow extends JFrame {
     private static final int WINDOW_WIDTH = 400;
     private static final int WINDOW_HEIGHT = 500;
     private static final Font LABEL_FONT = new Font("Arial", Font.BOLD, 17);
@@ -14,7 +14,7 @@ public class RecordWindow extends JFrame {
     private DefaultTableModel tableModel;
     private JTable recordTable;
 
-    public RecordWindow() {
+    public FinishWindow() {
         setTitle("Список рекордів");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -52,6 +52,7 @@ public class RecordWindow extends JFrame {
 
         setLookAndFeel();
         add(panel);
+        setVisible(true);
     }
 
     private void setLookAndFeel() {
@@ -77,4 +78,16 @@ public class RecordWindow extends JFrame {
         java.util.Date date = new java.util.Date();
         return new java.sql.Date(date.getTime()).toString();
     }
+
+//    private void showRecordWindow() {
+//        RecordWindow recordWindow = new RecordWindow();
+//        // Get player score data and add the record to the record window
+//        //int playerScore = game.getPlayerScore();
+//       // String playerName = game.getPlayer().getPlayerName();
+//       // recordWindow.addRecord(playerName, playerScore);
+//        recordWindow.setVisible(true);
+//
+//        // Close the current welcome window
+//        //welcomeWindow.dispose();
+//    }
 }

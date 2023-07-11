@@ -6,6 +6,7 @@ import gamelogic.Player;
 
 import javax.swing.*;
 
+
 public class GameWindow extends JFrame {
     private final MainGame game;
     //private final ComponentsGameWindow components;
@@ -25,8 +26,8 @@ public class GameWindow extends JFrame {
         ComponentsGameWindow.getButton().addActionListener(e -> {
             String userInput = ComponentsGameWindow.getUserInput();
             if (userInput.equalsIgnoreCase("z") || userInput.equalsIgnoreCase("здаюсь")){
-                showRecordWindow();
-                dispose();
+                ComponentsGameWindow.closeGameWindow();
+                FinishWindow recordWindow = new FinishWindow();
                 return;
             }
             boolean isCityAvailable = game.isCityAvailable(userInput);
@@ -49,17 +50,5 @@ public class GameWindow extends JFrame {
                 ComponentsGameWindow.showMessage("Такого міста нема","Міста нема");
             }
         });
-    }
-
-    private void showRecordWindow() {
-        RecordWindow recordWindow = new RecordWindow();
-        // Get player score data and add the record to the record window
-        int playerScore = game.getPlayerScore();
-        String playerName = game.getPlayer().getPlayerName();
-        recordWindow.addRecord(playerName, playerScore);
-        recordWindow.setVisible(true);
-
-        // Close the current welcome window
-        //welcomeWindow.dispose();
     }
 }
