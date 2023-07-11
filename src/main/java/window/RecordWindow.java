@@ -52,6 +52,7 @@ public class RecordWindow extends JFrame {
 
         setLookAndFeel();
         add(panel);
+        setVisible(true);
     }
 
     private void setLookAndFeel() {
@@ -77,4 +78,16 @@ public class RecordWindow extends JFrame {
         java.util.Date date = new java.util.Date();
         return new java.sql.Date(date.getTime()).toString();
     }
+
+//    private void showRecordWindow() {
+//        RecordWindow recordWindow = new RecordWindow();
+//        // Get player score data and add the record to the record window
+//        //int playerScore = game.getPlayerScore();
+//       // String playerName = game.getPlayer().getPlayerName();
+//       // recordWindow.addRecord(playerName, playerScore);
+//        recordWindow.setVisible(true);
+//
+//        // Close the current welcome window
+//        //welcomeWindow.dispose();
+//    }
 }
