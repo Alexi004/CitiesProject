@@ -90,4 +90,8 @@ public class ComponentsGameWindow {
     public static void setComputerResponse(String response) {
         computerResponseLabel.setText(response);
     }
+
+    public static void closeGameWindow() {
+        frameGame.dispose();
+    }
 }
