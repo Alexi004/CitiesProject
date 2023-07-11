@@ -26,7 +26,7 @@ public class ComponentsGameWindow {
         instructionLabel = new JLabel("Введіть назву міста:");
         userInputField = new JTextField(15);
         computerResponseLabelText = new JLabel("Відповідь комп'ютера:");
-        computerResponseLabel = new JLabel("ххххххххххххх");
+        computerResponseLabel = new JLabel(" ");
         explanationForGameOver = new JLabel("(Якщо у Вас закінчились варіанти назв міст,");
         explanationForGameOver1 = new JLabel("введіть в текстове поле слово \"здаюсь\")");
 
