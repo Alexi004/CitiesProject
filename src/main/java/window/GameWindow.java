@@ -28,7 +28,7 @@ public class GameWindow extends JFrame {
 
             if (isCityAvailable) {
                 String aiCity = game.getRandomCity(userInput.charAt(userInput.length() - 1));
-                components.setComputerResponse(aiCity);
+                components.setComputerResponse(aiCity.substring(0, 1).toUpperCase() + aiCity.substring(1));
                 game.addCity(userInput, aiCity);
             } else {
                 components.showGameOverDialog();
