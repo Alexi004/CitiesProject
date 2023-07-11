@@ -7,31 +7,31 @@ import gamelogic.Player;
 import javax.swing.*;
 
 public class GameWindow extends JFrame {
-    private MainGame game;
-    private ComponentsGameWindow components;
-    private WelcomeWindow welcomeWindow;
+    private final MainGame game;
+    //private final ComponentsGameWindow components;
+    //private WelcomeWindow welcomeWindow;
 
     public GameWindow(String playerName) {
-        this.welcomeWindow = welcomeWindow;
+
         String[] cities = CityValidator.loadCities("src/main/resources/cities.txt");
         game = new MainGame(new Player(playerName), cities);
-        components = new ComponentsGameWindow();
+        //components = new ComponentsGameWindow();
         initComponents();
     }
 
     private void initComponents() {
-        components.createFrame();
+        ComponentsGameWindow.createFrame();
 
-        components.getButton().addActionListener(e -> {
-            String userInput = components.getUserInput();
+        ComponentsGameWindow.getButton().addActionListener(e -> {
+            String userInput = ComponentsGameWindow.getUserInput();
             boolean isCityAvailable = game.isCityAvailable(userInput);
 
             if (isCityAvailable) {
                 String aiCity = game.getRandomCity(userInput.charAt(userInput.length() - 1));
-                components.setComputerResponse(aiCity.substring(0, 1).toUpperCase() + aiCity.substring(1));
+                ComponentsGameWindow.setComputerResponse(aiCity.substring(0, 1).toUpperCase() + aiCity.substring(1));
                 game.addCity(userInput, aiCity);
             } else {
-                components.showGameOverDialog();
+                ComponentsGameWindow.showGameOverDialog();
                 showRecordWindow();
             }
         });
@@ -46,6 +46,6 @@ public class GameWindow extends JFrame {
         recordWindow.setVisible(true);
 
         // Close the current welcome window
-        welcomeWindow.dispose();
+        //welcomeWindow.dispose();
     }
 }
