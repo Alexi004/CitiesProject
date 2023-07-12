@@ -89,6 +89,11 @@ public class MainGame {
     public int getPlayerScore() {
         return turnCounter - 1;
     }
+
+    public int getTurnCounter() {
+        return turnCounter;
+    }
+
     @SuppressWarnings("unused")
     public Player getPlayer() {
         return player;
