@@ -6,48 +6,49 @@ import gamelogic.Player;
 
 import javax.swing.*;
 
-
 public class GameWindow extends JFrame {
     private final MainGame game;
-    //private final ComponentsGameWindow components;
-    //private WelcomeWindow welcomeWindow;
+    private final ComponentsGameWindow components;
+    private final String playerName;
 
     public GameWindow(String playerName) {
+        this.playerName = playerName;
 
         String[] cities = CityValidator.loadCities("src/main/resources/cities.txt");
         game = new MainGame(new Player(playerName), cities);
-        //components = new ComponentsGameWindow();
+        components = new ComponentsGameWindow();
         initComponents();
     }
 
     private void initComponents() {
-        ComponentsGameWindow.createFrame();
+        components.createFrame();
 
-        ComponentsGameWindow.getButton().addActionListener(e -> {
-            String userInput = ComponentsGameWindow.getUserInput();
-            if (userInput.equalsIgnoreCase("z") || userInput.equalsIgnoreCase("здаюсь")){
-                ComponentsGameWindow.closeGameWindow();
-                FinishWindow recordWindow = new FinishWindow();
+        components.getButton().addActionListener(e -> {
+            String userInput = components.getUserInput();
+            if (userInput.equalsIgnoreCase("здаюсь")) {
+                components.closeGameWindow();
+                int computerScore = game.getPlayerScore();
+                int playerScore = game.getPlayerScore();
+                SwingUtilities.invokeLater(() -> new FinishWindow(computerScore, playerScore, playerName));
                 return;
             }
             boolean isCityAvailable = game.isCityAvailable(userInput);
 
             if (isCityAvailable) {
                 String aiCity = game.getRandomCity(game.getLastCitySymbol());
-                if (aiCity.equalsIgnoreCase("not found")){
-                    ComponentsGameWindow.showMessage("AI loss at turn"+game.getLastCitySymbol(),"AI loss");
+                if (aiCity.equalsIgnoreCase("not found")) {
+                    components.showMessage("AI loss at turn " + game.getLastCitySymbol(), "AI loss");
                     return;
-                }else {
+                } else {
                     isCityAvailable = game.isCityAvailable(aiCity);
-                    if (!isCityAvailable){
-                        ComponentsGameWindow.showMessage("AI loss at turn !!! "+game.getLastCitySymbol(),"AI loss");
+                    if (!isCityAvailable) {
+                        components.showMessage("AI loss at turn " + game.getLastCitySymbol(), "AI loss");
                         return;
                     }
                 }
-                ComponentsGameWindow.setComputerResponse(aiCity.substring(0, 1).toUpperCase() + aiCity.substring(1));
-                //game.addCity(userInput, aiCity);
+                components.setComputerResponse(aiCity.substring(0, 1).toUpperCase() + aiCity.substring(1));
             } else {
-                ComponentsGameWindow.showMessage("Такого міста нема","Міста нема");
+                components.showMessage("Такого міста немає", "Міста немає");
             }
         });
     }
