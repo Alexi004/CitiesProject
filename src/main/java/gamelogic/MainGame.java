@@ -39,7 +39,7 @@ public class MainGame {
 
     public boolean isCityAvailable(String city) {
         city = city.toLowerCase();
-        if (lastCity!=null) { //if not first turn
+        if (lastCity != null) { //if not first turn
             if (city.charAt(0) != getLastCitySymbol()) {
                 return false;
             }
@@ -79,19 +79,9 @@ public class MainGame {
         this.lastCity = lastCity;
     }
 
-
-//    public void addCity(String userCity, String aiCity) {
-//        cities.put(userCity.toLowerCase(), turnCounter);
-//        cities.put(aiCity.toLowerCase(), turnCounter);
-//        turnCounter++;
-//    }
     @SuppressWarnings("unused")
     public int getPlayerScore() {
         return turnCounter - 1;
-    }
-
-    public int getTurnCounter() {
-        return turnCounter;
     }
 
     @SuppressWarnings("unused")

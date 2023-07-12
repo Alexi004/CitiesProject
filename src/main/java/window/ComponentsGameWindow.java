@@ -10,25 +10,20 @@ public class ComponentsGameWindow {
     private static final int WIDTH_FRAME = 400;
 
     private static JFrame frameGame;
-    private static JPanel panel;
     private static JButton button;
-    private static JLabel instructionLabel;
     private static JTextField userInputField;
-    private static JLabel computerResponseLabelText;
     private static JLabel computerResponseLabel;
-    private static JLabel explanationForGameOver;
-    private static JLabel explanationForGameOver1;
 
     public static void createFrame() {
         frameGame = new JFrame("Міста");
-        panel = new JPanel();
+        JPanel panel = new JPanel();
         button = new JButton("Зробити хід");
-        instructionLabel = new JLabel("Введіть назву міста:");
+        JLabel instructionLabel = new JLabel("Введіть назву міста:");
         userInputField = new JTextField(15);
-        computerResponseLabelText = new JLabel("Відповідь комп'ютера:");
+        JLabel computerResponseLabelText = new JLabel("Відповідь комп'ютера:");
         computerResponseLabel = new JLabel(" ");
-        explanationForGameOver = new JLabel("(Якщо у Вас закінчились варіанти назв міст,");
-        explanationForGameOver1 = new JLabel("введіть в текстове поле слово \"здаюсь\")");
+        JLabel explanationForGameOver = new JLabel("(Якщо у Вас закінчились варіанти назв міст,");
+        JLabel explanationForGameOver1 = new JLabel("введіть в текстове поле слово \"здаюсь\")");
 
         frameGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameGame.setSize(WIDTH_FRAME, HEIGHT_FRAME);
@@ -71,16 +66,8 @@ public class ComponentsGameWindow {
         frameGame.setVisible(true);
     }
 
-    public static void showGameOverDialog() {
-        JOptionPane.showMessageDialog(frameGame, "Гра закінчена. Ви програли.", "Кінець гри", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    public static void showMessage(String message,String title) {
+    public static void showMessage(String message, String title) {
         JOptionPane.showMessageDialog(frameGame, message, title, JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    public static JButton getButton() {
-        return button;
     }
 
     public static String getUserInput() {
@@ -93,5 +80,9 @@ public class ComponentsGameWindow {
 
     public static void closeGameWindow() {
         frameGame.dispose();
+    }
+
+    public static JButton getButton() {
+        return button;
     }
 }

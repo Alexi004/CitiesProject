@@ -8,7 +8,6 @@ import javax.swing.*;
 
 public class GameWindow extends JFrame {
     private final MainGame game;
-    private final ComponentsGameWindow components;
     private final String playerName;
 
     public GameWindow(String playerName) {
@@ -16,23 +15,23 @@ public class GameWindow extends JFrame {
 
         String[] cities = CityValidator.loadCities("src/main/resources/cities.txt");
         game = new MainGame(new Player(playerName), cities);
-        components = new ComponentsGameWindow();
         initComponents();
     }
-    private void openFinishWindow(String finishMessage){
-        components.closeGameWindow();
-        int lastTurn = game.getTurnCounter()-1;
-        SwingUtilities.invokeLater(() -> new FinishWindow(lastTurn, lastTurn, playerName));
-        return;
+
+    private void openFinishWindow() {
+        ComponentsGameWindow.closeGameWindow();
+        int lastTurn = game.getPlayerScore();
+        SwingUtilities.invokeLater(() -> new FinishWindow(game.getPlayerScore(), lastTurn, playerName));
     }
 
     private void initComponents() {
-        components.createFrame();
+        ComponentsGameWindow.createFrame();
 
-        components.getButton().addActionListener(e -> {
-            String userInput = components.getUserInput();
+        JButton button = ComponentsGameWindow.getButton();
+        button.addActionListener(e -> {
+            String userInput = ComponentsGameWindow.getUserInput();
             if (userInput.equalsIgnoreCase("здаюсь")) {
-                openFinishWindow("здаюсь");
+                openFinishWindow();
                 return;
             }
             boolean isCityAvailable = game.isCityAvailable(userInput);
@@ -40,19 +39,18 @@ public class GameWindow extends JFrame {
             if (isCityAvailable) {
                 String aiCity = game.getRandomCity(game.getLastCitySymbol());
                 if (aiCity.equalsIgnoreCase("not found")) {
-                    openFinishWindow("комп здаеться");
-                    //components.showMessage("AI loss at turn " + game.getLastCitySymbol(), "AI loss");
+                    openFinishWindow();
                     return;
                 } else {
                     isCityAvailable = game.isCityAvailable(aiCity);
                     if (!isCityAvailable) {
-                        openFinishWindow("комп здаеться - шось пішло не так");
+                        openFinishWindow();
                         return;
                     }
                 }
-                components.setComputerResponse(aiCity.substring(0, 1).toUpperCase() + aiCity.substring(1));
+                ComponentsGameWindow.setComputerResponse(aiCity.substring(0, 1).toUpperCase() + aiCity.substring(1));
             } else {
-                components.showMessage("Такого міста немає", "Міста немає");
+                ComponentsGameWindow.showMessage("Такого міста немає", "Міста немає");
             }
         });
     }
