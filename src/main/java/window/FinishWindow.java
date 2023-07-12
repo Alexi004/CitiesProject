@@ -27,8 +27,16 @@ public class FinishWindow extends JFrame {
         JLabel resultLabel = new JLabel();
         resultLabel.setFont(LABEL_FONT);
         resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        if (playerScore % 2 == 1) {
+            playerScore = playerScore / 2 + 1;
+        } else {
+            playerScore = playerScore / 2;
+        }
+        computerScore = computerScore / 2;
 
-        if (computerScore > playerScore) {
+        if (computerScore==0){
+            resultLabel.setText("Не здавайся так одразу!");
+        } else if (computerScore >= playerScore) {
             resultLabel.setText("Виграв комп'ютер!");
         } else {
             resultLabel.setText("Виграв гравець " + playerName + "!");

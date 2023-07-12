@@ -21,10 +21,8 @@ public class GameWindow extends JFrame {
     }
     private void openFinishWindow(String finishMessage){
         components.closeGameWindow();
-        int lastTurn = game.getTurnCounter();
-        int computerScore = lastTurn/2-1 ;
-        int playerScore = lastTurn/2;
-        SwingUtilities.invokeLater(() -> new FinishWindow(computerScore, playerScore, playerName));
+        int lastTurn = game.getTurnCounter()-1;
+        SwingUtilities.invokeLater(() -> new FinishWindow(lastTurn, lastTurn, playerName));
         return;
     }
 
