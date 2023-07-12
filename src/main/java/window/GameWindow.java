@@ -19,6 +19,14 @@ public class GameWindow extends JFrame {
         components = new ComponentsGameWindow();
         initComponents();
     }
+    private void openFinishWindow(String finishMessage){
+        components.closeGameWindow();
+        int lastTurn = game.getTurnCounter();
+        int computerScore = lastTurn/2-1 ;
+        int playerScore = lastTurn/2;
+        SwingUtilities.invokeLater(() -> new FinishWindow(computerScore, playerScore, playerName));
+        return;
+    }
 
     private void initComponents() {
         components.createFrame();
@@ -26,10 +34,7 @@ public class GameWindow extends JFrame {
         components.getButton().addActionListener(e -> {
             String userInput = components.getUserInput();
             if (userInput.equalsIgnoreCase("здаюсь")) {
-                components.closeGameWindow();
-                int computerScore = game.getPlayerScore();
-                int playerScore = game.getPlayerScore();
-                SwingUtilities.invokeLater(() -> new FinishWindow(computerScore, playerScore, playerName));
+                openFinishWindow("здаюсь");
                 return;
             }
             boolean isCityAvailable = game.isCityAvailable(userInput);
@@ -37,12 +42,13 @@ public class GameWindow extends JFrame {
             if (isCityAvailable) {
                 String aiCity = game.getRandomCity(game.getLastCitySymbol());
                 if (aiCity.equalsIgnoreCase("not found")) {
-                    components.showMessage("AI loss at turn " + game.getLastCitySymbol(), "AI loss");
+                    openFinishWindow("комп здаеться");
+                    //components.showMessage("AI loss at turn " + game.getLastCitySymbol(), "AI loss");
                     return;
                 } else {
                     isCityAvailable = game.isCityAvailable(aiCity);
                     if (!isCityAvailable) {
-                        components.showMessage("AI loss at turn " + game.getLastCitySymbol(), "AI loss");
+                        openFinishWindow("комп здаеться - шось пішло не так");
                         return;
                     }
                 }
