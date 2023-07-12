@@ -6,14 +6,19 @@ import java.awt.*;
 
 public class FinishWindow extends JFrame {
     private static final int WINDOW_WIDTH = 400;
-    private static final int WINDOW_HEIGHT = 500;
+    private static final int WINDOW_HEIGHT = 300;
     private static final Font LABEL_FONT = new Font("Arial", Font.BOLD, 17);
 
     public FinishWindow(int computerScore, int playerScore, String playerName) {
         setTitle("Кінець гри");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        setVisible(true);
         setLocationRelativeTo(null);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         JLabel congratulationsLabel = new JLabel("Вітаємо із завершенням гри!");
         congratulationsLabel.setFont(LABEL_FONT);
@@ -42,19 +47,26 @@ public class FinishWindow extends JFrame {
         newGameButton.setMaximumSize(new Dimension(150, newGameButton.getPreferredSize().height));
         newGameButton.addActionListener(e -> startNewGame());
 
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = 1;
+        constraints.gridy = 1;
+        constraints.insets = new Insets(5, 5, 5, 5);
+        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
 
-        panel.setLayout(new BorderLayout());
-        panel.add(congratulationsLabel, BorderLayout.NORTH);
-        panel.add(resultLabel, BorderLayout.CENTER);
-        panel.add(computerScoreLabel, BorderLayout.CENTER);
-        panel.add(playerScoreLabel, BorderLayout.CENTER);
-        panel.add(newGameButton, BorderLayout.SOUTH);
+        panel.add(congratulationsLabel, constraints);
+        constraints.gridy++;
+        panel.add(resultLabel, constraints);
+        constraints.gridy++;
+        panel.add(computerScoreLabel, constraints);
+        constraints.gridy++;
+        panel.add(playerScoreLabel, constraints);
+        constraints.gridy++;
+        constraints.insets = new Insets(50, 5, 5, 5);
+        panel.add(newGameButton, constraints);
 
         setLookAndFeel();
         add(panel);
-        setVisible(true);
     }
 
     private void setLookAndFeel() {
