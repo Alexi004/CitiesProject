@@ -18,8 +18,8 @@ public class CityValidator {
 
     public static String[] loadCities(String fileName) {
         List<String> cities = new ArrayList<>();
-        try (InputStream inputStream = CityValidator.class.getResourceAsStream(fileName);
-             BufferedReader reader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(inputStream)))) {
+        try (InputStream inputStream = CityValidator.class.getResourceAsStream("/cities.txt");
+             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 cities.add(line);
