@@ -27,6 +27,7 @@ public class FinishWindow extends JFrame {
         JLabel resultLabel = new JLabel();
         resultLabel.setFont(LABEL_FONT);
         resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
         if (playerScore % 2 == 1) {
             playerScore = playerScore / 2 + 1;
         } else {
