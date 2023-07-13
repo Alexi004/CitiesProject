@@ -2,7 +2,6 @@ package window;
 
 import gamelogic.CityValidator;
 import gamelogic.MainGame;
-import gamelogic.Player;
 
 import javax.swing.*;
 
@@ -14,7 +13,7 @@ public class GameWindow extends JFrame {
         this.playerName = playerName;
 
         String[] cities = CityValidator.loadCities("src/main/resources/cities.txt");
-        game = new MainGame(new Player(playerName), cities);
+        game = new MainGame(cities);
         initComponents();
     }
 

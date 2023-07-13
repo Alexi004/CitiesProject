@@ -7,23 +7,21 @@ import java.util.Map;
 import java.util.Random;
 
 public class MainGame {
-    private final Player player;
+    private final HashMap<String, Integer> citiesMap;
     private String lastCity;
-    private final HashMap<String, Integer> cities;
     private int turnCounter;
 
-    public MainGame(Player player, String[] cities) {
-        this.player = player;
-        this.cities = new HashMap<>();
+    public MainGame(String[] cities) {
+        this.citiesMap = new HashMap<>();
         for (String city : cities) {
-            this.cities.put(city.toLowerCase(), 0);
+            this.citiesMap.put(city.toLowerCase(), 0);
         }
         this.turnCounter = 1;
     }
 
     public String getRandomCity(char firstChar) {
         List<String> availableCities = new ArrayList<>();
-        for (Map.Entry<String, Integer> entry : cities.entrySet()) {
+        for (Map.Entry<String, Integer> entry : citiesMap.entrySet()) {
             String city = entry.getKey();
             if (Character.toLowerCase(city.charAt(0)) == firstChar && entry.getValue() == 0) {
                 availableCities.add(city);
@@ -39,13 +37,13 @@ public class MainGame {
 
     public boolean isCityAvailable(String city) {
         city = city.toLowerCase();
-        if (lastCity != null) { //if not first turn
+        if (lastCity != null) {
             if (city.charAt(0) != getLastCitySymbol()) {
                 return false;
             }
         }
-        if (cities.containsKey(city) && cities.get(city) == 0) {
-            cities.put(city, turnCounter);
+        if (citiesMap.containsKey(city) && citiesMap.get(city) == 0) {
+            citiesMap.put(city, turnCounter);
             lastCity = city;
             turnCounter++;
             return true;
@@ -69,33 +67,7 @@ public class MainGame {
         }
     }
 
-    @SuppressWarnings("unused")
-    public String getLastCity() {
-        return lastCity;
-    }
-
-    @SuppressWarnings("unused")
-    public void setLastCity(String lastCity) {
-        this.lastCity = lastCity;
-    }
-
-    @SuppressWarnings("unused")
     public int getPlayerScore() {
         return turnCounter - 1;
-    }
-
-    @SuppressWarnings("unused")
-    public Player getPlayer() {
-        return player;
-    }
-
-    @SuppressWarnings("unused")
-    public boolean isAllCitiesUsed() {
-        for (int value : cities.values()) {
-            if (value == 0) {
-                return false;
-            }
-        }
-        return true;
     }
 }
