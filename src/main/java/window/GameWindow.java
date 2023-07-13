@@ -12,7 +12,7 @@ public class GameWindow extends JFrame {
     public GameWindow(String playerName) {
         this.playerName = playerName;
 
-        String[] cities = CityValidator.loadCities("src/main/resources/cities.txt");
+        String[] cities = CityValidator.loadCities("/cities.txt");
         game = new MainGame(cities);
         initComponents();
     }

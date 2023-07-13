@@ -1,10 +1,9 @@
 package gamelogic;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CityValidator {
     private final String[] towns;
@@ -19,7 +18,8 @@ public class CityValidator {
 
     public static String[] loadCities(String fileName) {
         List<String> cities = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+        try (InputStream inputStream = CityValidator.class.getResourceAsStream(fileName);
+             BufferedReader reader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(inputStream)))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 cities.add(line);
